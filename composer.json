@@ -10,10 +10,11 @@
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.5",
-        "sentry/sentry-laravel": "*"
+        "sentry/sentry-laravel": "*",
+        "spatie/laravel-html": "^3.5"
     },
     "require-dev": {
-        "spatie/laravel-ignition": "^2.0",
+        "spatie/laravel-ignition": "^2.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
