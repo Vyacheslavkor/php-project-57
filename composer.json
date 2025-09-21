@@ -20,7 +20,8 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
         "phpunit/phpunit": "^9.5.10",
-        "squizlabs/php_codesniffer": "^4.0"
+        "squizlabs/php_codesniffer": "^4.0",
+        "barryvdh/laravel-ide-helper": "^3.6"
     },
     "autoload": {
         "psr-4": {
