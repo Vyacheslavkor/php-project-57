@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+public/js
+public/css
 /storage/*.key
 /vendor
 .env
@@ -19,3 +21,4 @@ build
 _ide_helper.php
 _ide_helper_models.php
 .phpunit.cache
+.DS_Store

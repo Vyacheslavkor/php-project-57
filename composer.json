@@ -7,21 +7,23 @@
     "require": {
         "php": "^7.3|^8.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^12.0",
+        "laracasts/flash": "^3.2",
+        "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.5",
         "sentry/sentry-laravel": "*",
         "spatie/laravel-html": "^3.5"
     },
     "require-dev": {
-        "spatie/laravel-ignition": "^2.7",
+        "barryvdh/laravel-ide-helper": "^3.6",
         "fakerphp/faker": "^1.9.1",
+        "laravel/breeze": "^2.3",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^8.1",
         "phpunit/phpunit": "^11.0",
-        "squizlabs/php_codesniffer": "^4.0",
-        "barryvdh/laravel-ide-helper": "^3.6"
+        "spatie/laravel-ignition": "^2.7",
+        "squizlabs/php_codesniffer": "^4.0"
     },
     "autoload": {
         "psr-4": {
