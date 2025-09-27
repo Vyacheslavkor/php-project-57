@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -81,7 +82,11 @@ class TaskStatusControllerTest extends TestCase
         $response = $this->delete(route('task_statuses.destroy', [$taskStatus]));
         $response->assertRedirect(route('login'));
 
-        $response = $this->actingAs($this->user)->delete(route('task_statuses.destroy', [$taskStatus]));
+        $task = Task::factory()->create();
+        $response = $this->actingAs($task->creator)->delete(route('task_statuses.destroy', $task->status));
+        $response->assertRedirect(route('task_statuses.index', ['error' => 'used_in_tasks']));
+
+        $response = $this->actingAs($this->user)->delete(route('task_statuses.destroy', $taskStatus));
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));

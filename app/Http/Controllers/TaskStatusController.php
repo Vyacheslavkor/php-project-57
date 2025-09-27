@@ -42,7 +42,7 @@ class TaskStatusController extends Controller
             ],
             [
                 'name.required' => 'Это обязательное поле',
-                'name.unique'   => 'Статус с таким именем уже существует'
+                'name.unique'   => 'Статус с таким именем уже существует',
             ]
         );
 
@@ -98,6 +98,12 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus): RedirectResponse
     {
+        if ($taskStatus->tasks()->exists()) {
+            flash('Не удалось удалить статус')->error();
+
+            return redirect()->route('task_statuses.index', ['error' => 'used_in_tasks']);
+        }
+
         $taskStatus->delete();
 
         flash('Статус успешно удалён')->success();
