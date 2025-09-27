@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        DB::table('task_statuses')->insert([
+            [
+                'name' => 'новый',
+                'created_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'в работе',
+                'created_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'на тестировании',
+                'created_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'завершен',
+                'created_at' => Carbon::now(),
+            ],
+        ]);
     }
 }
