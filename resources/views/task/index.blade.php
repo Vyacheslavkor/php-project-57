@@ -105,7 +105,11 @@
                                                     href="{{ route('tasks.show', $task) }}"
                                             >{{ $task->name }}</a></td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $task->creator->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">@if ($task->assignee){{ $task->assignee->name }}@else --- @endif</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">@if ($task->assignee)
+                                                {{ $task->assignee->name }}
+                                            @else
+                                                ---
+                                            @endif</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ Carbon\Carbon::parse($task->created_at)->format('d.m.Y') }}</td>
                                         @auth
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-right">
@@ -114,16 +118,20 @@
                                                        class="text-blue-600 hover:underline"
                                                     >Редактировать</a>
 
-                                                    <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="inline-flex" id="delete-form-{{ $task->id }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a href="#"
-                                                           class="text-red-600 hover:underline cursor-pointer"
-                                                           onclick="event.preventDefault(); if(confirm('Вы уверены?')) { document.getElementById('delete-form-{{ $task->id }}').submit(); }"
+                                                    @if ($task->creator->id == auth()->id())
+                                                        <form action="{{ route('tasks.destroy', $task) }}" method="POST"
+                                                              class="inline-flex" id="delete-form-{{ $task->id }}"
                                                         >
-                                                            Удалить
-                                                        </a>
-                                                    </form>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="#"
+                                                               class="text-red-600 hover:underline cursor-pointer"
+                                                               onclick="event.preventDefault(); if(confirm('Вы уверены?')) { document.getElementById('delete-form-{{ $task->id }}').submit(); }"
+                                                            >
+                                                                Удалить
+                                                            </a>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </td>
                                         @endauth
