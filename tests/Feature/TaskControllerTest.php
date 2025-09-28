@@ -10,6 +10,8 @@ use Tests\TestCase;
 
 class TaskControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testIndex(): void
     {
         $response = $this->get(route('tasks.index'));
@@ -96,7 +98,6 @@ class TaskControllerTest extends TestCase
         $response->assertForbidden();
 
         $response = $this->actingAs($task->creator)->delete(route('tasks.destroy', $task));
-        $response->assertRedirect();
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('tasks.index'));

@@ -49,6 +49,19 @@
                         </div>
                     </div>
 
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold mb-2">Метки</h3>
+                        @if($task->labels->isEmpty())
+                            <p class="text-gray-500">Метки отсутствуют</p>
+                        @else
+                            <div class="flex flex-wrap gap-4">
+                                @foreach($task->labels as $label)
+                                    <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-4 py-1 rounded-lg dark:bg-gray-700 dark:text-gray-400 border border-gray-500"> {{ $label->name }}</span>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+
                     @auth
                         @if(auth()->id() === $task->created_by_id)
                             <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить эту задачу?');" class="mt-6">

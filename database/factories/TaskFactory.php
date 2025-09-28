@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Label;
+use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Carbon\Carbon;
@@ -25,8 +27,14 @@ class TaskFactory extends Factory
             'created_by_id'  => User::factory(),
             'assigned_to_id' => User::factory(),
             'status_id'      => TaskStatus::factory(),
-            'created_at'     => Carbon::now(),
-            'updated_at'     => Carbon::now(),
         ];
+    }
+
+    public function withLabels(int $count = 2)
+    {
+        return $this->afterCreating(function (Task $task) use ($count) {
+            $labels = Label::factory()->count($count)->create();
+            $task->labels()->attach($labels->modelKeys());
+        });
     }
 }

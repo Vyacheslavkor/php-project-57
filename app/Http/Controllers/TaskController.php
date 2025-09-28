@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Label;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
@@ -33,7 +34,10 @@ class TaskController extends Controller
         $user = auth()->user();
         $task->creator()->associate($user);
 
-        return view('task.create', ['task' => $task, 'users' => User::get(), 'taskStatuses' => TaskStatus::get()]);
+        return view(
+            'task.create',
+            ['task' => $task, 'users' => User::get(), 'taskStatuses' => TaskStatus::get(), 'labels' => Label::get()]
+        );
     }
 
     /**
@@ -47,6 +51,8 @@ class TaskController extends Controller
                 'description'    => 'nullable|string',
                 'status_id'      => ['required', 'exists:task_statuses,id'],
                 'assigned_to_id' => ['nullable', 'exists:users,id'],
+                'labels'         => ['nullable', 'array'],
+                'labels.*'       => ['integer', 'exists:labels,id'],
             ],
             [
                 'name.required' => 'Это обязательное поле',
@@ -63,6 +69,10 @@ class TaskController extends Controller
         }
 
         $task->save();
+
+        if (isset($data['labels'])) {
+            $task->labels()->sync($data['labels']);
+        }
 
         flash('Задача успешно создана')->success();
 
@@ -82,7 +92,10 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('task.edit', ['task' => $task, 'users' => User::get(), 'taskStatuses' => TaskStatus::get()]);
+        return view(
+            'task.edit',
+            ['task' => $task, 'users' => User::get(), 'taskStatuses' => TaskStatus::get(), 'labels' => Label::get()]
+        );
     }
 
     /**
@@ -95,11 +108,19 @@ class TaskController extends Controller
             'description'    => 'nullable',
             'status_id'      => ['required', 'exists:task_statuses,id'],
             'assigned_to_id' => ['nullable', 'exists:users,id'],
+            'labels'         => ['nullable', 'array'],
+            'labels.*'       => ['integer', 'exists:labels,id'],
         ]);
 
         $data['created_by_id'] = auth()->id();
 
         $task->update($data);
+
+        if (isset($data['labels'])) {
+            $task->labels()->sync($data['labels']);
+        } else {
+            $task->labels()->sync([]);
+        }
 
         flash('Задача успешно обновлена.')->success();
 

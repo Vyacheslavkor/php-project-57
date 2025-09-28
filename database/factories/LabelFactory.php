@@ -6,9 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TaskStatus>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Label>
  */
-class TaskStatusFactory extends Factory
+class LabelFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,8 @@ class TaskStatusFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name'        => fake()->word,
+            'description' => fake()->paragraph,
         ];
     }
 }

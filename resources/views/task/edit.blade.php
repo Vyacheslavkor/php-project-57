@@ -12,7 +12,7 @@
                     <section>
                         <header>
                             <h2 class="text-lg font-medium text-gray-900">
-                                {{ __('Создать задачу') }}
+                                {{ __('Обновить задачу') }}
                             </h2>
                         </header>
 
@@ -54,6 +54,19 @@
                                     @endforeach
                                 </select>
                                 <x-input-error class="mt-2" :messages="$errors->get('assigned_to_id')" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="labels" :value="__('Метки')" />
+                                <select id="labels" name="labels[]" multiple class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" size="5">
+                                    @foreach($labels as $label)
+                                        <option value="{{ $label->id }}"
+                                                @if(in_array($label->id, old('labels', $task->labels->pluck('id')->toArray()))) selected @endif>
+                                            {{ $label->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <x-input-error class="mt-2" :messages="$errors->get('labels')" />
                             </div>
 
                             <div class="flex items-center gap-4">
