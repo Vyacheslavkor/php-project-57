@@ -106,7 +106,7 @@
                                             >{{ $task->name }}</a></td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $task->creator->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">@if ($task->assignee){{ $task->assignee->name }}@else --- @endif</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $task->created_at }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ Carbon\Carbon::parse($task->created_at)->format('d.m.Y') }}</td>
                                         @auth
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-right">
 
