@@ -17,7 +17,7 @@ class TaskControllerTest extends TestCase
         $response = $this->get(route('tasks.index'));
         $response->assertOk();
     }
-    
+
     public function testCreate()
     {
         $response = $this->get(route('tasks.create'));
