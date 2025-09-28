@@ -20,7 +20,7 @@
                     <div class="w-full flex items-center mb-4">
                         <form method="GET" action="{{ route('tasks.index') }}" class="flex w-full gap-2">
                             <select name="filter[status_id]" id="filter[status_id]"
-                                    class="rounded border border-gray-300 px-3 py-2"
+                                    class="rounded border border-gray-300 px-3 py-2 w-1/3"
                             >
                                 <option value="">{{ __('Статус') }}</option>
                                 @foreach($taskStatuses as $status)
@@ -29,7 +29,7 @@
                             </select>
 
                             <select name="filter[created_by_id]" id="filter[created_by_id]"
-                                    class="rounded border border-gray-300 px-3 py-2"
+                                    class="rounded border border-gray-300 px-3 py-2 w-1/3"
                             >
                                 <option value="">{{ __('Автор') }}</option>
                                 @foreach($users as $user)
@@ -38,7 +38,7 @@
                             </select>
 
                             <select name="filter[assigned_to_id]" id="filter[assigned_to_id]"
-                                    class="rounded border border-gray-300 px-3 py-2"
+                                    class="rounded border border-gray-300 px-3 py-2 w-1/3"
                             >
                                 <option value="">{{ __('Исполнитель') }}</option>
                                 @foreach($users as $user)
@@ -109,26 +109,21 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ Carbon\Carbon::parse($task->created_at)->format('d.m.Y') }}</td>
                                         @auth
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-right">
-
                                                 <div class="flex flex-wrap justify-end gap-4 sm:flex-col sm:items-end">
                                                     <a href="{{ route('tasks.edit', $task) }}"
                                                        class="text-blue-600 hover:underline"
                                                     >Редактировать</a>
 
-                                                    @if (auth()->id() === $task->creator->id)
-                                                        <form action="{{ route('tasks.destroy', $task) }}"
-                                                              method="POST"
-                                                              class="inline-flex"
+                                                    <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="inline-flex" id="delete-form-{{ $task->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="#"
+                                                           class="text-red-600 hover:underline cursor-pointer"
+                                                           onclick="event.preventDefault(); if(confirm('Вы уверены?')) { document.getElementById('delete-form-{{ $task->id }}').submit(); }"
                                                         >
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                    class="text-red-600 hover:underline"
-                                                                    onclick="return confirm('Вы уверены?')"
-                                                            >Удалить
-                                                            </button>
-                                                        </form>
-                                                    @endif
+                                                            Удалить
+                                                        </a>
+                                                    </form>
                                                 </div>
                                             </td>
                                         @endauth

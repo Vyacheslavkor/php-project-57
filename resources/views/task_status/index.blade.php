@@ -53,20 +53,19 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-right">
                                             @auth
                                                 <div class="flex flex-wrap justify-end gap-4 sm:flex-col sm:items-end">
-                                                    <a href="{{ route('task_statuses.edit', $status) }}"
+                                                    <a href="{{ route('task_statuses.edit', $taskStatus) }}"
                                                        class="text-blue-600 hover:underline"
                                                     >Редактировать</a>
 
-                                                    <form action="{{ route('task_statuses.destroy', $status) }}"
-                                                          method="POST"
-                                                          class="inline-flex"
-                                                    >
+                                                    <form action="{{ route('task_statuses.destroy', $taskStatus) }}" method="POST" class="inline-flex" id="delete-form-{{ $taskStatus->id }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"
-                                                                class="text-red-600 hover:underline"
-                                                                onclick="return confirm('Вы уверены?')"
-                                                        >Удалить</button>
+                                                        <a href="#"
+                                                           class="text-red-600 hover:underline cursor-pointer"
+                                                           onclick="event.preventDefault(); if(confirm('Вы уверены?')) { document.getElementById('delete-form-{{ $taskStatus->id }}').submit(); }"
+                                                        >
+                                                            Удалить
+                                                        </a>
                                                     </form>
                                                 </div>
                                             @endauth

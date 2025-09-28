@@ -65,16 +65,15 @@
                                                        class="text-blue-600 hover:underline"
                                                     >Редактировать</a>
 
-                                                    <form action="{{ route('labels.destroy', $label) }}"
-                                                          method="POST"
-                                                          class="inline-flex"
-                                                    >
+                                                    <form action="{{ route('labels.destroy', $label) }}" method="POST" class="inline-flex" id="delete-form-{{ $label->id }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"
-                                                                class="text-red-600 hover:underline"
-                                                                onclick="return confirm('Вы уверены?')"
-                                                        >Удалить</button>
+                                                        <a href="#"
+                                                           class="text-red-600 hover:underline cursor-pointer"
+                                                           onclick="event.preventDefault(); if(confirm('Вы уверены?')) { document.getElementById('delete-form-{{ $label->id }}').submit(); }"
+                                                        >
+                                                            Удалить
+                                                        </a>
                                                     </form>
                                                 </div>
                                             @endauth
