@@ -118,14 +118,20 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        $data = $request->validate([
-            'name'           => 'required',
-            'description'    => 'nullable',
-            'status_id'      => ['required', 'exists:task_statuses,id'],
-            'assigned_to_id' => ['nullable', 'exists:users,id'],
-            'labels'         => ['nullable', 'array'],
-            'labels.*'       => ['integer', 'exists:labels,id'],
-        ]);
+        $data = $request->validate(
+            [
+                'name'           => 'required',
+                'description'    => 'nullable',
+                'status_id'      => ['required', 'exists:task_statuses,id'],
+                'assigned_to_id' => ['nullable', 'exists:users,id'],
+                'labels'         => ['nullable', 'array'],
+                'labels.*'       => ['integer', 'exists:labels,id'],
+            ],
+            [
+                'name.required'      => 'Это обязательное поле',
+                'status_id.required' => 'Это обязательное поле',
+            ]
+        );
 
         $data['created_by_id'] = auth()->id();
 
