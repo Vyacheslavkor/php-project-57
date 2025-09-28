@@ -35,7 +35,7 @@ class LabelController extends Controller
     {
         $data = $request->validate(
             [
-                'name'           => 'required',
+                'name'           => 'required|unique:labels',
                 'description'    => 'nullable|string',
             ],
             [
@@ -74,7 +74,7 @@ class LabelController extends Controller
     {
         $data = $request->validate(
             [
-                'name'           => 'required',
+                'name'           => "required|unique:labels,name,$label->id",
                 'description'    => 'nullable|string',
             ],
             [
