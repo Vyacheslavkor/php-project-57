@@ -76,7 +76,7 @@
                                                  onclick="event.preventDefault();
                                                 this.closest('form').submit();"
                                 >
-                                    {{ __('Log Out') }}
+                                    {{ __('Выйти') }}
                                 </x-dropdown-link>
                             </form>
                         @else
@@ -139,7 +139,7 @@
                                                onclick="event.preventDefault();
                                         this.closest('form').submit();"
                         >
-                            {{ __('Log Out') }}
+                            {{ __('Выйти') }}
                         </x-responsive-nav-link>
                     </form>
                 </div>
