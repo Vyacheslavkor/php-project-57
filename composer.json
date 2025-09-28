@@ -12,7 +12,8 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.5",
         "sentry/sentry-laravel": "*",
-        "spatie/laravel-html": "^3.5"
+        "spatie/laravel-html": "^3.5",
+        "spatie/laravel-query-builder": "^6.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.6",

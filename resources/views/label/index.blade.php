@@ -56,7 +56,7 @@
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $label->id }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $label->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $label->description }}</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700 break-words">{{ $label->description }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $label->created_at }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-right">
                                             @auth
@@ -84,6 +84,8 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        @include('components.pagination', ['items' => $labels])
                     @else
                         {{ __('Не найдено') }}
                     @endif

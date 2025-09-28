@@ -76,6 +76,8 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        @include('components.pagination', ['items' => $taskStatuses])
                     @else
                         {{ __('Не найдено') }}
                     @endif

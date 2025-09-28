@@ -7,6 +7,8 @@ use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
@@ -20,9 +22,21 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::paginate();
+        $tasks = QueryBuilder::for(Task::class, request())
+            ->allowedFilters(
+                [
+                    AllowedFilter::exact('status_id'),
+                    AllowedFilter::exact('created_by_id'),
+                    AllowedFilter::exact('assigned_to_id'),
+                ]
+            )
+            ->paginate(10);
 
-        return view('task.index', compact('tasks'));
+        $labels = Label::get();
+        $taskStatuses = TaskStatus::get();
+        $users = User::get();
+
+        return view('task.index', compact('tasks', 'labels', 'taskStatuses', 'users'));
     }
 
     /**
