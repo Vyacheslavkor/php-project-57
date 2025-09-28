@@ -55,7 +55,7 @@
                                                 <div class="flex flex-wrap justify-end gap-4 sm:flex-col sm:items-end">
                                                     <a href="{{ route('task_statuses.edit', $status) }}"
                                                        class="text-blue-600 hover:underline"
-                                                    >Редактировать</a>
+                                                    >Изменить</a>
 
                                                     <form action="{{ route('task_statuses.destroy', $status) }}" method="POST" class="inline-flex" id="delete-form-{{ $status->id }}">
                                                         @csrf

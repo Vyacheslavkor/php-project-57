@@ -63,7 +63,7 @@
                                                 <div class="flex flex-wrap justify-end gap-4 sm:flex-col sm:items-end">
                                                     <a href="{{ route('labels.edit', $label) }}"
                                                        class="text-blue-600 hover:underline"
-                                                    >Редактировать</a>
+                                                    >Изменить</a>
 
                                                     <form action="{{ route('labels.destroy', $label) }}" method="POST" class="inline-flex" id="delete-form-{{ $label->id }}">
                                                         @csrf

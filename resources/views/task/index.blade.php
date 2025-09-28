@@ -116,7 +116,7 @@
                                                 <div class="flex flex-wrap justify-end gap-4 sm:flex-col sm:items-end">
                                                     <a href="{{ route('tasks.edit', $task) }}"
                                                        class="text-blue-600 hover:underline"
-                                                    >Редактировать</a>
+                                                    >Изменить</a>
 
                                                     @if ($task->creator->id == auth()->id())
                                                         <form action="{{ route('tasks.destroy', $task) }}" method="POST"
