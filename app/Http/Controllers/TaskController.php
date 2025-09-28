@@ -69,7 +69,8 @@ class TaskController extends Controller
                 'labels.*'       => ['integer', 'exists:labels,id'],
             ],
             [
-                'name.required' => 'Это обязательное поле',
+                'name.required'      => 'Это обязательное поле',
+                'status_id.required' => 'Это обязательное поле',
             ]
         );
 

@@ -36,7 +36,7 @@
 
                             <div>
                                 <x-input-label for="status_id" :value="__('Статус')" />
-                                <select id="status_id" name="status_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                <select id="status_id" name="status_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                                     <option value="">{{ __('Выберите статус') }}</option>
                                     @foreach($taskStatuses as $status)
                                         <option value="{{ $status->id }}" @selected(old('status_id', $task->status_id) === $status->id)>{{ $status->name }}</option>
