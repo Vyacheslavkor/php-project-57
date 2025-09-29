@@ -106,6 +106,6 @@ class TaskControllerTest extends TestCase
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseMissing('tasks', (array) $task->only('id'));
+        $this->assertDatabaseMissing('tasks', $task->only('id'));
     }
 }

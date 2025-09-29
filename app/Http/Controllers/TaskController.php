@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -45,11 +46,9 @@ class TaskController extends Controller
     public function create()
     {
         $task = new Task();
-        /** @var \Illuminate\Contracts\Auth\Guard $auth */
-        $auth = auth();
 
         /** @var User $user */
-        $user = $auth->user();
+        $user = Auth::user();
         $task->creator()->associate($user);
 
         return view(
@@ -81,10 +80,7 @@ class TaskController extends Controller
         $task = new Task();
         $task->fill($data);
 
-        /** @var \Illuminate\Contracts\Auth\Guard $auth */
-        $auth = auth();
-
-        $task->creator()->associate(User::find($auth->id()));
+        $task->creator()->associate(User::find(Auth::id()));
 
         if (isset($data['assigned_to_id'])) {
             $task->assignee()->associate(User::find($data['assigned_to_id']));
@@ -140,9 +136,7 @@ class TaskController extends Controller
             ]
         );
 
-        /** @var \Illuminate\Contracts\Auth\Guard $auth */
-        $auth = auth();
-        $data['created_by_id'] = $auth->id();
+        $data['created_by_id'] = Auth::id();
 
         $task->update($data);
 
