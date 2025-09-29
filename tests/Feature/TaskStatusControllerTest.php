@@ -58,7 +58,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertRedirect(route('task_statuses.index'));
         $response->assertSessionHasNoErrors();
 
-        /** @var array $data */
+        /** @var array{name: string} $data */
         $this->assertDatabaseHas('task_statuses', $data);
     }
 
@@ -75,7 +75,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertRedirect(route('task_statuses.index'));
         $response->assertSessionHasNoErrors();
 
-        /** @var array $data */
+        /** @var array $data{name: string} */
         $this->assertDatabaseHas('task_statuses', $data);
     }
 
@@ -96,7 +96,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
 
-        /** @var array $data */
+        /** @var array{id: int} $data */
         $data = $taskStatus->only('id');
         $this->assertDatabaseMissing('task_statuses', $data);
     }
