@@ -75,7 +75,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertRedirect(route('task_statuses.index'));
         $response->assertSessionHasNoErrors();
 
-        /** @var array $data{name: string} */
+        /** @var array{name: string} $data */
         $this->assertDatabaseHas('task_statuses', $data);
     }
 
