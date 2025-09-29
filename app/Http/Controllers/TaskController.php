@@ -45,7 +45,11 @@ class TaskController extends Controller
     public function create()
     {
         $task = new Task();
-        $user = auth()->user();
+        /** @var \Illuminate\Contracts\Auth\Guard $auth */
+        $auth = auth();
+
+        /** @var User $user */
+        $user = $auth->user();
         $task->creator()->associate($user);
 
         return view(
@@ -77,9 +81,12 @@ class TaskController extends Controller
         $task = new Task();
         $task->fill($data);
 
-        $task->creator()->associate(User::find(auth()->id()));
+        /** @var \Illuminate\Contracts\Auth\Guard $auth */
+        $auth = auth();
 
-        if (!empty($data['assigned_to_id'])) {
+        $task->creator()->associate(User::find($auth->id()));
+
+        if (isset($data['assigned_to_id'])) {
             $task->assignee()->associate(User::find($data['assigned_to_id']));
         }
 
@@ -133,7 +140,9 @@ class TaskController extends Controller
             ]
         );
 
-        $data['created_by_id'] = auth()->id();
+        /** @var \Illuminate\Contracts\Auth\Guard $auth */
+        $auth = auth();
+        $data['created_by_id'] = $auth->id();
 
         $task->update($data);
 

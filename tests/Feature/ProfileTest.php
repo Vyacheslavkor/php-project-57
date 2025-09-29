@@ -23,6 +23,7 @@ class ProfileTest extends TestCase
 
     public function testProfileInformationCanBeUpdated(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this
@@ -40,11 +41,15 @@ class ProfileTest extends TestCase
 
         $this->assertSame('Test User', $user->name);
         $this->assertSame('test@example.com', $user->email);
-        $this->assertNull($user->email_verified_at);
+
+        /** @var ?string $email_verified_at */
+        $email_verified_at = $user->email_verified_at;
+        $this->assertNull($email_verified_at);
     }
 
     public function testEmailVerificationStatusIsUnchangedWhenTheEmailAddressIsUnchanged(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this
@@ -63,6 +68,7 @@ class ProfileTest extends TestCase
 
     public function testUserCanDeleteTheirAccount(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this
@@ -81,6 +87,7 @@ class ProfileTest extends TestCase
 
     public function testCorrectPasswordMustBeProvidedToDeleteAccount(): void
     {
+        /** @var User $user */
         $user = User::factory()->create();
 
         $response = $this

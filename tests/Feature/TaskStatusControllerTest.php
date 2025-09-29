@@ -13,6 +13,8 @@ class TaskStatusControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected User $user;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -38,10 +40,10 @@ class TaskStatusControllerTest extends TestCase
     {
         $taskStatus = TaskStatus::factory()->create();
 
-        $response = $this->get(route('task_statuses.edit', [$taskStatus]));
+        $response = $this->get(route('task_statuses.edit', $taskStatus));
         $response->assertRedirect(route('login'));
 
-        $response = $this->actingAs($this->user)->get(route('task_statuses.edit', [$taskStatus]));
+        $response = $this->actingAs($this->user)->get(route('task_statuses.edit', $taskStatus));
         $response->assertOk();
     }
 
@@ -56,7 +58,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertRedirect(route('task_statuses.index'));
         $response->assertSessionHasNoErrors();
 
-        $this->assertDatabaseHas('task_statuses', $data);
+        $this->assertDatabaseHas('task_statuses', (array) $data);
     }
 
     public function testUpdate(): void
@@ -72,7 +74,7 @@ class TaskStatusControllerTest extends TestCase
         $response->assertRedirect(route('task_statuses.index'));
         $response->assertSessionHasNoErrors();
 
-        $this->assertDatabaseHas('task_statuses', $data);
+        $this->assertDatabaseHas('task_statuses', (array) $data);
     }
 
     public function testDestroy(): void
@@ -82,6 +84,7 @@ class TaskStatusControllerTest extends TestCase
         $response = $this->delete(route('task_statuses.destroy', [$taskStatus]));
         $response->assertRedirect(route('login'));
 
+        /** @var Task $task */
         $task = Task::factory()->create();
         $response = $this->actingAs($task->creator)->delete(route('task_statuses.destroy', $task->status));
         $response->assertRedirect(route('task_statuses.index', ['error' => 'used_in_tasks']));
@@ -90,6 +93,6 @@ class TaskStatusControllerTest extends TestCase
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
-        $this->assertDatabaseMissing('task_statuses', $taskStatus->only('id'));
+        $this->assertDatabaseMissing('task_statuses', (array) $taskStatus->only('id'));
     }
 }

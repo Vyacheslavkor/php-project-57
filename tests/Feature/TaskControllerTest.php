@@ -23,6 +23,7 @@ class TaskControllerTest extends TestCase
         $response = $this->get(route('tasks.create'));
         $response->assertRedirect(route('login'));
 
+        /** @var Task $task */
         $task = Task::factory()->create();
         $creator = $task->creator;
 
@@ -32,6 +33,7 @@ class TaskControllerTest extends TestCase
 
     public function testEdit(): void
     {
+        /** @var Task $task */
         $task = Task::factory()->create();
 
         $response = $this->get(route('tasks.edit', $task));
@@ -43,6 +45,7 @@ class TaskControllerTest extends TestCase
 
     public function testStore(): void
     {
+        /** @var Task $task */
         $task = Task::factory()->create();
 
         $data = [
@@ -65,6 +68,7 @@ class TaskControllerTest extends TestCase
 
     public function testUpdate(): void
     {
+        /** @var Task $task */
         $task = Task::factory()->create();
 
         $data = [
@@ -87,6 +91,7 @@ class TaskControllerTest extends TestCase
 
     public function testDestroy(): void
     {
+        /** @var Task $task */
         $task = Task::factory()->create();
 
         $response = $this->delete(route('tasks.destroy', $task));
@@ -101,6 +106,6 @@ class TaskControllerTest extends TestCase
 
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseMissing('tasks', $task->only('id'));
+        $this->assertDatabaseMissing('tasks', (array) $task->only('id'));
     }
 }

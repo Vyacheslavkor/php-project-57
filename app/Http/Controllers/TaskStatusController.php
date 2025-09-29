@@ -65,9 +65,9 @@ class TaskStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($taskStatusId)
+    public function edit(TaskStatus $taskStatus)
     {
-        return view('task_status.edit', ['taskStatus' => TaskStatus::findOrFail($taskStatusId)]);
+        return view('task_status.edit', ['taskStatus' => $taskStatus]);
     }
 
     /**

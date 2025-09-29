@@ -66,6 +66,7 @@ class LabelControllerTest extends TestCase
 
     public function testUpdate()
     {
+        /** @var Label $label */
         $label = Label::factory()->create();
         $updateRoute = route('labels.update', $label);
 
@@ -87,6 +88,7 @@ class LabelControllerTest extends TestCase
 
     public function testDestroy()
     {
+        /** @var Label $label */
         $label = Label::factory()->create();
         $destroyRoute = route('labels.destroy', $label);
         $user = User::factory()->make();
